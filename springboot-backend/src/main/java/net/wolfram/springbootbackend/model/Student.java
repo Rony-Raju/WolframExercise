@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tutors")
-public class Tutor {
+@Table(name = "students")
+public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,11 +26,11 @@ public class Tutor {
     @Column(name = "password")
     private String pass;
     
-    public Tutor() {
+    public Student() {
 
     }
     
-    public Tutor(String firstName, String lastName, String emailId) {
+    public Student(String firstName, String lastName, String emailId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailId = emailId;
@@ -61,14 +61,4 @@ public class Tutor {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
-    public String getPass() {
-        return pass;
-    }
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-    
 }
-
-
-

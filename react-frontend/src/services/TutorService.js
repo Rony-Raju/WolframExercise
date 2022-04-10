@@ -4,6 +4,16 @@ const TUTOR_API_BASE_URL = "http://localhost:8080/api/v1/tutors";
 
 class TutorService {
 
+    login(accType, userInfo) {
+        if(accType === "tutors") {
+            return axios.post(TUTOR_API_BASE_URL, userInfo);
+        }
+        
+        else {
+            return 0;
+        }
+    }
+
     getTutors(){
         return axios.get(TUTOR_API_BASE_URL);
     }

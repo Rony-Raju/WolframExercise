@@ -15,6 +15,7 @@ import CreateTutorComponent from './components/CreateTutorComponent';
 import ListTutorComponent from './components/ListTutorComponent';
 import TutorSchedule from './components/TutorSchedule';
 import AddAppointment from './components/AddAppointment';
+import SignUp from './components/SignUp/SignUp';
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -23,6 +24,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<App/>}>
         <Route path="/login" element={<LoginComponent/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/tutors" element={<ListTutorComponent/>}/>
         <Route path="/update-tutor/:id" element={<UpdateTutorComponent/>}/>

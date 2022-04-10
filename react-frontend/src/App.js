@@ -20,8 +20,8 @@ function App() {
           paddingBottom: "1rem",
         }}
       >
-        <Link to="/login">login</Link> |{" "}
-        <Link to="/dashboard">Expenses</Link>
+        <Link to="/login">Login</Link> |{" "}
+        <Link to="/dashboard">Sign Up</Link>
       </nav>
       <Outlet/>
     </div>

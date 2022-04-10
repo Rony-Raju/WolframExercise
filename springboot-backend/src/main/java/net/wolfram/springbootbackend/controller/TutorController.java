@@ -33,6 +33,12 @@ public class TutorController {
     @Autowired
     private TutorRepo tutorRepo;
 
+    //login tutor
+    @PutMapping("/tutors")
+    public ResponseEntity<Tutor> loginTutor(@RequestBody Tutor tutor) {
+        tutor = tutorRepo.findByEmailIdAndPass(tutor.getEmailId(), tutor.getPass());
+        return ResponseEntity.ok(tutor);
+    }
     //get all tutors
     @GetMapping("/tutors")
     public List<Tutor> getAllTutors(){
