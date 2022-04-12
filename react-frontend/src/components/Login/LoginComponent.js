@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Select from 'react-select/';
 import TutorService from '../../services/TutorService';
 
 export default function LoginComponent() {
 
-
+    const navigate = useNavigate();
     const accounts = [
         {label: "tutor", value: "tutors"}, 
         {label: "student", value: "students"}
@@ -14,12 +14,13 @@ export default function LoginComponent() {
     
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
-
+    
     let userInfo = {emailId: userName, pass: password}
-
-    const login = ({accType, userInfo}) =>{
-        TutorService.login(userInfo).then((response) => {
-            console.log("response.data")
+    let tutor = {}
+    const login = () =>{
+        TutorService.login(accType, userInfo).then((response) => {         
+            tutor = response.data
+            navigate('/dashboard', {state:tutor})
         }); 
     }
     return (
@@ -49,9 +50,9 @@ export default function LoginComponent() {
                         <input type="password" value={userInfo.password} onChange={e => setPassword(e.target.value)} />
                     </label>
                     <div>
-                        <Link to="/tutors">
-                            <button className="btn btn-primary" style={{marginTop:10}}>Sign In</button>
-                        </Link>
+                       
+                        <button type="button" className="btn btn-primary" style={{marginTop:10}} onClick={login}>Sign In</button>
+                    
                         <Link to="/add-tutor">
                             <button className='btn btn-primary'  style={{marginLeft:10, marginTop:10}}>Sign Up</button>
                         </Link>

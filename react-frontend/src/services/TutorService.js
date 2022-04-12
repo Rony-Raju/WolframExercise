@@ -6,9 +6,8 @@ class TutorService {
 
     login(accType, userInfo) {
         if(accType === "tutors") {
-            return axios.post(TUTOR_API_BASE_URL, userInfo);
+            return axios.put(TUTOR_API_BASE_URL, userInfo);
         }
-        
         else {
             return 0;
         }
@@ -35,7 +34,7 @@ class TutorService {
         return axios.get(TUTOR_API_BASE_URL+'/'+tutorId+'/schedule', tutorId);
     }
     deleteTutorSchedule(tutorId, schedId) {
-        axios.delete(TUTOR_API_BASE_URL+'/'+tutorId+'/schedule'+'/'+schedId);
+        axios.delete(TUTOR_API_BASE_URL+'/'+tutorId+'/schedule/'+schedId);
         return this.getTutorSchedule(tutorId);
     }
     addTutorSchedule(schedule){

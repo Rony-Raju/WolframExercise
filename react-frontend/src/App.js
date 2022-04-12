@@ -1,12 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import { Link, Outlet} from 'react-router-dom';
-import ListTutorComponent from './components/ListTutorComponent';
-import HeaderComponent from './components/HeaderComponent';
-import FooterComponent from './components/FooterComponent';
+
 import CreateTutorComponent from './components/CreateTutorComponent';
-import UpdateTutorComponent from './components/UpdateTutorComponent';
-import Dashboard from './components/Dashboard/Dashboard';
 import LoginComponent from './components/Login/LoginComponent';
 import React, {useState} from 'react';
 
@@ -21,7 +17,7 @@ function App() {
         }}
       >
         <Link to="/login">Login</Link> |{" "}
-        <Link to="/dashboard">Sign Up</Link>
+        <Link to="/add-tutor">Sign Up</Link>
       </nav>
       <Outlet/>
     </div>

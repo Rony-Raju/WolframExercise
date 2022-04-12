@@ -39,6 +39,7 @@ public class TutorController {
         tutor = tutorRepo.findByEmailIdAndPass(tutor.getEmailId(), tutor.getPass());
         return ResponseEntity.ok(tutor);
     }
+    
     //get all tutors
     @GetMapping("/tutors")
     public List<Tutor> getAllTutors(){
