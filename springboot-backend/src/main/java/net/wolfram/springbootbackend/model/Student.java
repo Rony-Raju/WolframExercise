@@ -61,4 +61,10 @@ public class Student {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+    public String getPass() {
+        return pass;
+    }
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 }

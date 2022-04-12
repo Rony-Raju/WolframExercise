@@ -1,12 +1,16 @@
 import axios from 'axios';
 
 const TUTOR_API_BASE_URL = "http://localhost:8080/api/v1/tutors";
-
+const STUDENT_API_BASE_URL = "http://localhost:8080/api/v1/students"
 class TutorService {
 
     login(accType, userInfo) {
         if(accType === "tutors") {
-            return axios.put(TUTOR_API_BASE_URL, userInfo);
+           return axios.put(TUTOR_API_BASE_URL, userInfo);
+        }
+        else if(accType === "students") {
+
+            return axios.put(STUDENT_API_BASE_URL, userInfo)
         }
         else {
             return 0;

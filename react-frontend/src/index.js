@@ -16,8 +16,8 @@ import ListTutorComponent from './components/ListTutorComponent';
 import TutorSchedule from './components/TutorSchedule';
 import AddAppointment from './components/AddAppointment';
 import SignUp from './components/SignUp/SignUp';
-
 const rootElement = document.getElementById("root");
+
 ReactDOM.render(
   <BrowserRouter>
     <HeaderComponent/>
