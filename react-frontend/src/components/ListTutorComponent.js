@@ -12,7 +12,6 @@ export default function ListTutorComponent() {
     const getTutors = () => {
         TutorService.getTutors().then((response) => {
             setTutors(response.data)
-            console.log(response.data)
         }); 
     }
   return (
@@ -41,6 +40,7 @@ export default function ListTutorComponent() {
                             <td>{tutor.firstName}</td>
                             <td>{tutor.lastName}</td>
                             <td>{tutor.emailId}</td>
+                            {console.log(tutor)}
                             <td>
                                 <Link to={`/update-tutor/${tutor.id}`} state = {tutor}>
                                     <button className='btn btn-info'>Update Info</button>

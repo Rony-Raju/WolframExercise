@@ -23,7 +23,8 @@ public class StudentSchedule {
     private String apptDate;
     @Column(name = "end_time")
     private String endTime;
-    
+    @Column(name= "tutor_id")
+    private Long tutorId;
     public StudentSchedule() {
 
     }
@@ -70,7 +71,13 @@ public class StudentSchedule {
     public void setId(Long id) {
         this.id = id;
     }
-    
+//tutor id
+    public Long getTutorId() {
+        return tutorId;
+    }
+    public void setTutorId(Long tutorId) {
+        this.tutorId = tutorId;
+    }
     
 }
 

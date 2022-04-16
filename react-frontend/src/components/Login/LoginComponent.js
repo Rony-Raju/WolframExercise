@@ -16,7 +16,8 @@ export default function LoginComponent() {
     
     let userInfo = {emailId: userName, pass: password}
     let account = {}
-    const login = () =>{
+    const login = (e) =>{
+        e.preventDefault();
         //the login method for both is in the tutorService.
         TutorService.login(accType, userInfo).then((response) => {         
             account = response.data;
@@ -41,7 +42,7 @@ export default function LoginComponent() {
                 </div>
             </div>
             <div className='login-wrapper text-center'>
-                <form>
+                <form className='commentForm' onSubmit={login}>
                     <label>
                         <p>Username</p>
                         <input type="text" value={userInfo.userName} onChange={e => setUserName(e.target.value)}/>
@@ -53,10 +54,10 @@ export default function LoginComponent() {
                     </label>
                     <div>
                         <Link to="/add-tutor">
-                            <button className='btn btn-primary'  style={{marginLeft:10, marginTop:10}}>Sign Up</button>
+                            <button type='button' className='btn btn-secondary'  style={{marginTop:10}}>Sign Up</button>
                         </Link>
                         
-                        <button type="button" className="btn btn-primary" style={{marginTop:10}} onClick={login}>Sign In</button>
+                        <button type="submit" className="btn btn-primary" style={{marginLeft:10, marginTop:10}}>Sign In</button>
                     
                        
                     </div>

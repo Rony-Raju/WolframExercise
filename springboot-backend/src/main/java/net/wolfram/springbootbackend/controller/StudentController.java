@@ -80,8 +80,7 @@ public class StudentController {
 
     //Add an Appointment
     @PutMapping("/students/{id}/schedule")
-    public StudentSchedule createSchedule(@PathVariable Long id, @RequestBody StudentSchedule schedule) {
-        schedule.setStudentId(id);
+    public StudentSchedule createSchedule(@RequestBody StudentSchedule schedule) {
         sschedRepo.save(schedule);       
         return schedule;
     }
