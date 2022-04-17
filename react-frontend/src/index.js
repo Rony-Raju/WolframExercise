@@ -15,25 +15,28 @@ import CreateTutorComponent from './components/CreateTutorComponent';
 import ListTutorComponent from './components/ListTutorComponent';
 import TutorSchedule from './components/TutorSchedule';
 import AddAppointment from './components/AddAppointment';
-import SignUp from './components/SignUp/SignUp';
+import Notifications from './components/Notifications';
 const rootElement = document.getElementById("root");
 
 ReactDOM.render(
   <BrowserRouter>
+    <div>
     <HeaderComponent/>
     <Routes>
       <Route path="/" element={<App/>}>
         <Route path="/login" element={<LoginComponent/>}/>
-        <Route path="/signup" element={<SignUp/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/tutors" element={<ListTutorComponent/>}/>
         <Route path="/update-tutor/:id" element={<UpdateTutorComponent/>}/>
         <Route path="/add-tutor" element={<CreateTutorComponent/>}/>
         <Route path="/tutor-schedule/:id" element={<TutorSchedule/>}/>
         <Route path="/add-apt" element={<AddAppointment/>}/>
+        <Route path="/notifications" element={<Notifications/>}/>
       </Route>
     </Routes>
     <FooterComponent/>
+    </div>
+    
   </BrowserRouter>, 
   rootElement
 );
