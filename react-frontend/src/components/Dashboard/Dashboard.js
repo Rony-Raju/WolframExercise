@@ -1,11 +1,11 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Modal from 'react-modal/lib/components/Modal';
 import TutorService from '../../services/TutorService';
 import StudentService from '../../services/StudentService';
 export default function Dashboard(props) {
 
+  //this is a really long file, and I regret not splitting up components
     let location = useLocation();
     let account = location.state;
 
@@ -17,6 +17,16 @@ export default function Dashboard(props) {
       getSchedule();
     }, [])
 
+    //if logged in as a tutor
+    function AddAvail() {
+      if(account.type === 'tutors') {
+        return(
+          <Link to={`/tutor-schedule/${account.id}`} state={account}>  
+            <button className='btn btn-primary'>See Availability</button> 
+          </Link>
+       ) 
+      }
+    }
     function getSchedule() {
       StudentService.getSchedule(account.id).then((res) => {
         getTutorById(res.data)
@@ -55,7 +65,7 @@ export default function Dashboard(props) {
       StudentService.bookAppt(schedule, account.id).then((res) => {
         console.log(res.data)
       })
-      .catch((err) => console.log(err.data))
+      .catch((err) => console.log(err.message))
     }
 
     //since JS is inhospitable, I have to make another GET to find the tutor from the id
@@ -69,24 +79,37 @@ export default function Dashboard(props) {
       setSchedule(data);
     }
     
+    //function to cancel appointments
     function cancelAppt(appt) {
       delete appt.tutor
       
       StudentService.cancelAppt(appt).then((res) => {
+        notify(appt.tutorId);
         window.location.reload();
       })
       .catch((err) => console.log(err.message))
     }
 
 
-
+    //notify other party on book or cancel
+    function notify(tutorId) {
+      let notification = {tutorId: tutorId, message:`${account.firstName} has cancelled their appointment with you`}
+      StudentService.notifyTutor(notification).then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err.message));
+    }
     return(
     <div>
         <h1>Dashboard</h1>
         <h2>Welcome back, {account.firstName}!</h2>
         <br></br>
         <h3>Appointments</h3>
-        <button className='btn btn-info' type='button' onClick={toggleModal}>Add Appointment</button>
+        <button className='btn btn-info' type='button' onClick={toggleModal} style={{marginRight:10}}>Add Appointment</button>
+        <Link to="/notifications" state={account}>
+          <button className='btn btn-success' style={{marginRight:10}}>Notifications</button>
+        </Link>
+        <AddAvail/>
         <table className='table table-striped'>
           <thead>
             <tr>

@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.wolfram.springbootbackend.exception.ResourceNotFoundException;
 import net.wolfram.springbootbackend.model.Tutor;
+import net.wolfram.springbootbackend.model.TutorNotification;
 import net.wolfram.springbootbackend.model.TutorSchedule;
+import net.wolfram.springbootbackend.repository.TNotificationRepo;
 import net.wolfram.springbootbackend.repository.TSchedRepo;
 import net.wolfram.springbootbackend.repository.TutorRepo;
 
@@ -32,7 +34,8 @@ public class TutorController {
     private TSchedRepo tschedRepo;
     @Autowired
     private TutorRepo tutorRepo;
-
+    @Autowired
+    private TNotificationRepo tNoteRepo;
     //login tutor
     @PutMapping("/tutors")
     public ResponseEntity<Tutor> loginTutor(@RequestBody Tutor tutor) {
@@ -91,4 +94,27 @@ public class TutorController {
         tschedRepo.save(schedule);       
         return schedule;
     }
+
+    //deposit notifications
+    @PutMapping("/tutors/{id}/notifications")
+    public TutorNotification sendNotification(@RequestBody TutorNotification notification) {
+        return tNoteRepo.save(notification);
+    }
+
+    //delete notifications
+    @DeleteMapping("/tutors/{id}/notifications/{notificationId}")
+    public ResponseEntity<Tutor> deleteNotification(@PathVariable Long id, @PathVariable Long notificationId) {
+        tNoteRepo.deleteById(notificationId);
+        Tutor tutor; 
+        tutor = tutorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tutor doesn't exist with id: " + id));
+        return ResponseEntity.ok(tutor);
+    }
+
+    //get notifcations
+    @GetMapping("/tutors/{id}/notifications")
+    public List<TutorNotification> getNotifications(@PathVariable Long id) {
+        List<TutorNotification> notes = tNoteRepo.findByTutorId(id);
+        return notes;
+    }
+
 }

@@ -2,6 +2,7 @@ package net.wolfram.springbootbackend.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.wolfram.springbootbackend.exception.ResourceNotFoundException;
 import net.wolfram.springbootbackend.model.Student;
+import net.wolfram.springbootbackend.model.StudentNotification;
 import net.wolfram.springbootbackend.model.StudentSchedule;
+import net.wolfram.springbootbackend.repository.SNotificationRepo;
 import net.wolfram.springbootbackend.repository.SSchedRepo;
 import net.wolfram.springbootbackend.repository.StudentRepo;
 
@@ -31,6 +34,8 @@ public class StudentController {
     private StudentRepo studRepo;
     @Autowired
     private SSchedRepo sschedRepo;
+    @Autowired
+    private SNotificationRepo sNoteRepo;
 
     //login student
     @PutMapping("/students")
@@ -84,5 +89,28 @@ public class StudentController {
         sschedRepo.save(schedule);       
         return schedule;
     }
+
+    //deposit notifications
+    @PutMapping("/students/{id}/notifications")
+    public StudentNotification sendNotification(@RequestBody StudentNotification notification) {
+        return sNoteRepo.save(notification);
+    }
+
+    //delete notifications
+    @DeleteMapping("/students/{id}/notifications/{notificationId}")
+    public ResponseEntity<Student> deleteNotification(@PathVariable Long id, @PathVariable Long notificationId) {
+        sNoteRepo.deleteById(notificationId);
+        Student student;
+        student = studRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("student doesn't exist with id: " + id));
+        return ResponseEntity.ok(student);
+    }
+
+    //get notifcations
+    @GetMapping("/students/{id}/notifications")
+    public List<StudentNotification> getNotifications(@PathVariable Long id) {
+        List<StudentNotification> notes = sNoteRepo.findByStudentId(id);
+        return notes;
+    }
+
 }
 

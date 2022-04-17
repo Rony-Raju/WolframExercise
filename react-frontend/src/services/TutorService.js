@@ -22,7 +22,7 @@ class TutorService {
     }
 
     createTutor(tutor){
-        return axios.put(TUTOR_API_BASE_URL, tutor)
+        return axios.post(TUTOR_API_BASE_URL, tutor)
     }
     
     getTutorById(tutorId){
@@ -42,8 +42,16 @@ class TutorService {
         return this.getTutorSchedule(tutorId);
     }
     addTutorSchedule(schedule){
-        console.log(schedule)
         return axios.put(TUTOR_API_BASE_URL+'/'+schedule.tutorId+'/schedule', schedule);
+    }
+
+    getNotifications(tutorId) {
+        return axios.get(TUTOR_API_BASE_URL+'/'+tutorId+'/notifications')
+    }
+
+    deleteNotification(tutorId, noteId) {
+       return axios.delete(TUTOR_API_BASE_URL+'/'+tutorId+'/notifications/'+noteId);
+        
     }
 }   
 

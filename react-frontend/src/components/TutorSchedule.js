@@ -27,11 +27,16 @@ export default function TutorSchedule(props) {
   }
   return (
     <div>
-      <h1 className='text-center'>Appointments</h1>
+      <h1 className='text-center'>Availability</h1>
+      <Link to='/dashboard' state={tutor}>
+        <button className='btn btn-info glyphicon glyphicon-chevron-left' style={{marginLeft:10}}> Back to Dashboard</button>
+      </Link>
       <div className='text-center' style={{padding:10}}>
             <Link to={`/add-apt`} state={tutor}>
-                <button className="btn btn-primary">Add Appointment</button>
+                <button className="btn btn-primary">
+                  Add Availability</button>
             </Link>
+    
         </div>
       <table className='table table-striped'>
         <thead>
